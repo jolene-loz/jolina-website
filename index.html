@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JOLINA - Y2K Desktop Experience</title>
+    <title>Welcome to the JOLINA world</title>
     <script src="https://js.stripe.com/v3/"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Press+Start+2P&display=swap');
@@ -69,13 +69,56 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: linear-gradient(135deg, var(--burgundy) 0%, var(--deep-brown) 50%, var(--sunset-orange) 100%);
+            background:
+                repeating-conic-gradient(
+                    from 0deg at 50% 50%,
+                    #C2185B 0deg 15deg,
+                    #E91E63 15deg 30deg,
+                    #D81B60 30deg 45deg,
+                    #AD1457 45deg 60deg
+                );
             z-index: 9999;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
+        }
+
+        .login-screen::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                ellipse at center,
+                transparent 0%,
+                rgba(107, 45, 53, 0.3) 50%,
+                rgba(61, 40, 23, 0.6) 100%
+            );
+            z-index: 2;
+        }
+
+        .login-screen::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 20%, rgba(244, 167, 157, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 60%);
+            z-index: 3;
+            animation: loginShimmer 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes loginShimmer {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(2%, 2%) rotate(3deg); }
         }
 
         .login-screen.fade-out {
@@ -99,11 +142,13 @@
 
         .sparkle {
             position: absolute;
-            width: 4px;
-            height: 4px;
+            width: 5px;
+            height: 5px;
             background: var(--gold);
             border-radius: 50%;
             animation: twinkle ease-in-out infinite;
+            box-shadow: 0 0 6px var(--gold);
+            z-index: 4;
         }
 
         @keyframes twinkle {
@@ -114,7 +159,7 @@
         /* Login window - Y2K style */
         .login-window {
             position: relative;
-            z-index: 5;
+            z-index: 10;
             background: var(--cream);
             border: 3px solid;
             border-color: var(--white) var(--dark-gray) var(--dark-gray) var(--white);
@@ -130,7 +175,7 @@
         }
 
         .login-window-titlebar {
-            background: linear-gradient(90deg, var(--burgundy), var(--sunset-orange));
+            background: linear-gradient(90deg, var(--burgundy), #C2185B, var(--gold));
             padding: 6px 10px;
             display: flex;
             align-items: center;
@@ -194,13 +239,19 @@
             width: 80px;
             height: 80px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--coral-pink), var(--sunset-orange), var(--gold));
+            background: linear-gradient(135deg, #E91E63, var(--burgundy), var(--gold));
             border: 3px solid var(--gold);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 36px;
-            box-shadow: 3px 3px 0 rgba(0,0,0,0.15);
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.15), 0 0 20px rgba(233, 30, 99, 0.4);
+            animation: avatarPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes avatarPulse {
+            0%, 100% { box-shadow: 3px 3px 0 rgba(0,0,0,0.15), 0 0 20px rgba(233, 30, 99, 0.4); }
+            50% { box-shadow: 3px 3px 0 rgba(0,0,0,0.15), 0 0 30px rgba(212, 175, 55, 0.6); }
         }
 
         .login-avatar-name {
@@ -1368,21 +1419,52 @@
             display: flex;
             gap: 12px;
             margin-top: 20px;
+            flex-wrap: wrap;
         }
-        
+
         .social-btn {
-            padding: 8px 16px;
+            padding: 10px 20px;
             background: var(--deep-purple);
             color: var(--white);
-            border: 2px outset var(--white);
+            border: 3px outset var(--white);
             cursor: pointer;
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 15px;
+            font-family: 'Pixelify Sans', cursive;
             transition: all 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.25);
         }
-        
+
+        .social-btn.instagram {
+            background: linear-gradient(135deg, #833AB4, #E1306C, #F77737);
+            color: var(--white);
+        }
+
+        .social-btn.tiktok {
+            background: #010101;
+            color: var(--white);
+            text-shadow: -1px 0 #69C9D0, 1px 0 #EE1D52;
+        }
+
+        .social-btn.spotify {
+            background: #1DB954;
+            color: var(--white);
+        }
+
         .social-btn:hover {
-            background: var(--hot-pink);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 4px 6px 0 rgba(0,0,0,0.3);
+            filter: brightness(1.15);
+        }
+
+        .social-btn:active {
+            transform: translateY(0);
+            box-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+            border-style: inset;
         }
         
         /* Floating Stars */
@@ -1747,12 +1829,11 @@
             </div>
             <div class="login-window-body">
                 <div class="login-greeting">JOLINA</div>
-                <div class="login-sub">Y2K Desktop Experience</div>
+                <div class="login-sub">Welcome to the New Era</div>
                 <div class="login-avatar-row">
-                    <div class="login-avatar">&#9733;</div>
-                    <div class="login-avatar-name">jolina</div>
+                    <div class="login-avatar">&#9829;</div>
                 </div>
-                <button class="login-enter-btn" onclick="enterSite()">Log On</button>
+                <button class="login-enter-btn" onclick="enterSite()">ENTER</button>
             </div>
             <div class="login-window-statusbar">
                 <span>Ready</span>
@@ -1815,7 +1896,7 @@
             <div class="window-titlebar">
                 <div class="window-title">
                     <span>🎵</span>
-                    <span>Now Playing: Emotional Damage</span>
+                    <span>jolina.mp3</span>
                 </div>
                 <div class="window-controls">
                     <div class="window-btn">_</div>
@@ -1872,13 +1953,17 @@
             </div>
             <div class="window-content">
                 <div class="about-content">
-                    <h2>Hey! ✨</h2>
-                    <p>I'm JOLINA - a Y2K pop princess bringing early 2000s nostalgia back with a fresh twist. Think Bratz dolls meets Powerpuff Girls meets your favorite childhood memories.</p>
-                    <p>When I'm not making music, I'm building products that connect artists and fans in meaningful ways. Product leader by day, pop star by night! 💕</p>
+                    <h2>Oh hey there! ✨</h2>
+                    <p>I'm Jolina (aka Jolene Lozano) a Filipina-American R&B/Soul-Pop artist from New Jersey.
+                        When I was little and being a drama queen, my mom would call me “Jolina.”
+                         But 20+ years later, I realized she was really saying — “Jolene-ah!!
+                         </p>
+                    <p> Needless to say, this marks the start of my new music era:
+                        one where I'm unapologetically dramatic, vulnerable, and fully myself. And I make music for those people who are also trying to be in their y2k confident era. </p>
                     <div class="social-links">
-                        <button class="social-btn">Instagram</button>
-                        <button class="social-btn">TikTok</button>
-                        <button class="social-btn">Spotify</button>
+                        <a href="https://www.instagram.com/this.is.jolene" target="_blank" class="social-btn instagram">📸 Instagram</a>
+                        <a href="https://www.tiktok.com/@this.is.jolene" target="_blank" class="social-btn tiktok">🎵 TikTok</a>
+                        <a href="https://open.spotify.com/artist/4ZAwnJGuqLChoBQZe8MUe1?si=Vn8ZFsZAQTSSIp19vPlYyQ" target="_blank" class="social-btn spotify">🎧 Spotify</a>
                     </div>
                 </div>
             </div>
@@ -2059,30 +2144,17 @@
                             <p style="font-family: 'Pixelify Sans', cursive; font-size: 16px; color: white; font-weight: 700; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">Choose Your Character!</p>
                         </div>
                         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 500px; margin: 0 auto;">
-                            <!-- Y2K Characters -->
-                            <div onclick="selectCharacter('👩‍🎤')" style="background: linear-gradient(135deg, #FF1493, #FF69B4); padding: 16px; border: 3px solid white; border-radius: 12px; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 8px rgba(0,0,0,0.3);" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                                <div style="font-size: 48px; text-align: center; margin-bottom: 8px;">👩‍🎤</div>
-                                <div style="color: white; font-family: 'Pixelify Sans', cursive; font-size: 11px; text-align: center; font-weight: 700;">Pop Star</div>
-                            </div>
-                            <div onclick="selectCharacter('🧑‍🎸')" style="background: linear-gradient(135deg, #8B008B, #9932CC); padding: 16px; border: 3px solid white; border-radius: 12px; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 8px rgba(0,0,0,0.3);" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                                <div style="font-size: 48px; text-align: center; margin-bottom: 8px;">🧑‍🎸</div>
-                                <div style="color: white; font-family: 'Pixelify Sans', cursive; font-size: 11px; text-align: center; font-weight: 700;">Rockstar</div>
-                            </div>
                             <div onclick="selectCharacter('💃')" style="background: linear-gradient(135deg, #FFD700, #FFA500); padding: 16px; border: 3px solid white; border-radius: 12px; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 8px rgba(0,0,0,0.3);" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                                 <div style="font-size: 48px; text-align: center; margin-bottom: 8px;">💃</div>
                                 <div style="color: white; font-family: 'Pixelify Sans', cursive; font-size: 11px; text-align: center; font-weight: 700;">Dancer</div>
                             </div>
-                            <div onclick="selectCharacter('🕺')" style="background: linear-gradient(135deg, #00CED1, #1E90FF); padding: 16px; border: 3px solid white; border-radius: 12px; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 8px rgba(0,0,0,0.3);" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                                <div style="font-size: 48px; text-align: center; margin-bottom: 8px;">🕺</div>
-                                <div style="color: white; font-family: 'Pixelify Sans', cursive; font-size: 11px; text-align: center; font-weight: 700;">Party Dude</div>
+                            <div onclick="selectCharacter('🏃')" style="background: linear-gradient(135deg, #32CD32, #00FA9A); padding: 16px; border: 3px solid white; border-radius: 12px; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 8px rgba(0,0,0,0.3);" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                                <div style="font-size: 48px; text-align: center; margin-bottom: 8px;">🏃</div>
+                                <div style="color: white; font-family: 'Pixelify Sans', cursive; font-size: 11px; text-align: center; font-weight: 700;">Runner</div>
                             </div>
                             <div onclick="selectCharacter('🧚')" style="background: linear-gradient(135deg, #FF69B4, #FFB6C1); padding: 16px; border: 3px solid white; border-radius: 12px; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 8px rgba(0,0,0,0.3);" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                                 <div style="font-size: 48px; text-align: center; margin-bottom: 8px;">🧚</div>
                                 <div style="color: white; font-family: 'Pixelify Sans', cursive; font-size: 11px; text-align: center; font-weight: 700;">Fairy</div>
-                            </div>
-                            <div onclick="selectCharacter('🏃')" style="background: linear-gradient(135deg, #32CD32, #00FA9A); padding: 16px; border: 3px solid white; border-radius: 12px; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 8px rgba(0,0,0,0.3);" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                                <div style="font-size: 48px; text-align: center; margin-bottom: 8px;">🏃</div>
-                                <div style="color: white; font-family: 'Pixelify Sans', cursive; font-size: 11px; text-align: center; font-weight: 700;">Runner</div>
                             </div>
                         </div>
                     </div>
@@ -2568,7 +2640,7 @@
         let gameRunning = false;
         let gameScore = 0;
         let gameCanvas, ctx;
-        let selectedCharacter = '🏃';
+        let selectedCharacter = '💃';
         let player = { x: 70, y: 0, width: 50, height: 60, velocityY: 0, jumping: false };
         let obstacles = [];
         let gameSpeed = 4;

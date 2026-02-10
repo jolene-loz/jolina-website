@@ -61,8 +61,8 @@ app.post('/create-checkout-session', async (req, res) => {
                 },
             ],
             mode: 'payment',
-            success_url: `http://localhost:3000/y2k-windows-site_3.html?success=true`,
-            cancel_url: `http://localhost:3000/y2k-windows-site_3.html?canceled=true`,
+            success_url: `http://localhost:3000/index.html?success=true`,
+            cancel_url: `http://localhost:3000/index.html?canceled=true`,
         });
 
         res.json({ id: session.id });
