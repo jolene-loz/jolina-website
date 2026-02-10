@@ -2551,8 +2551,7 @@
             const video = videos[currentVideoIndex];
             document.getElementById('videoTitle').textContent = video.title;
             document.getElementById('videoType').textContent = video.type;
-            // Use nocookie domain for better compatibility
-            document.getElementById('videoFrame').src = `https://www.youtube-nocookie.com/embed/${video.videoId}?rel=0`;
+            document.getElementById('videoFrame').src = `https://www.youtube.com/embed/${video.videoId}?rel=0`;
         }
         
         function nextVideo() {
